@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#090711">
+  <title>Noxora — Your AI. Your Tools. Your World.</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="ambient ambient-one"></div><div class="ambient ambient-two"></div>
+  <header class="topbar">
+    <a class="brand" href="#" aria-label="Noxora home"><span class="brand-mark">N</span><span>NOXORA</span></a>
+    <button class="menu-btn" id="menuBtn" aria-label="Open navigation">☰</button>
+    <nav id="nav">
+      <a href="#assistant">AI Assistant</a><a href="#tools">Tools</a><a href="#discover">Discover</a>
+    </nav>
+    <button class="small-cta" id="topTry">Try Noxora <span>↗</span></button>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="eyebrow"><span class="pulse"></span> YOUR PERSONAL AI SPACE</div>
+      <h1>Think bigger.<br><span>Do more with AI.</span></h1>
+      <p class="hero-copy">One smart space for answers, ideas, useful tools, trends and discoveries. Welcome to your next move.</p>
+      <div class="hero-actions"><a class="primary-btn" href="#assistant">Explore Noxora <span>→</span></a><a class="text-btn" href="#tools">Discover tools</a></div>
+      <div class="hero-foot"><span><i></i> Built for curious minds</span><span>One world. More possibilities.</span></div>
+      <div class="orb-wrap" aria-hidden="true"><div class="orb"><div class="orb-core"></div><span class="orbit orbit-a"></span><span class="orbit orbit-b"></span><span class="spark s1">✦</span><span class="spark s2">✧</span></div></div>
+    </section>
+
+    <section class="section" id="assistant">
+      <div class="section-heading"><div><div class="eyebrow">01 / ASK ANYTHING</div><h2>Meet your AI assistant.</h2></div><p>Got a question, an idea, or something to figure out? Start here.</p></div>
+      <div class="assistant-card">
+        <div class="assistant-title"><div class="ai-icon">✳</div><div><strong>Noxora AI</strong><small>Your thinking partner</small></div><span class="online"><i></i> AI connection setup</span></div>
+        <div class="chat-area" id="chatArea"><div class="bubble bot">Hey! 👋 I’m Noxora. Ask me something, or try one of the prompts below.</div></div>
+        <div class="prompt-row"><button class="prompt">Give me business ideas</button><button class="prompt">Help me study</button><button class="prompt">Write a bio</button></div>
+        <form id="chatForm" class="chat-form"><input id="chatInput" type="text" placeholder="Ask Noxora anything..." autocomplete="off" aria-label="Ask Noxora anything"><button type="submit" aria-label="Send message">↑</button></form>
+        <p class="demo-note">Noxora sends messages through a secure server function. The site owner must configure an AI API key before live answers can work.</p>
+      </div>
+    </section>
+
+    <section class="section" id="tools">
+      <div class="section-heading"><div><div class="eyebrow">02 / GET THINGS DONE</div><h2>Small tools. Big momentum.</h2></div><p>Quick starting points for everyday tasks.</p></div>
+      <div class="tool-grid">
+        <button class="tool-card" data-tool="writer"><span class="tool-symbol purple">✎</span><strong>AI Writer</strong><span>Draft captions, bios and messages.</span><b>Open tool ↗</b></button>
+        <button class="tool-card" data-tool="study"><span class="tool-symbol blue">⌘</span><strong>Study Buddy</strong><span>Break tricky topics into simple steps.</span><b>Open tool ↗</b></button>
+        <button class="tool-card" data-tool="ideas"><span class="tool-symbol pink">✧</span><strong>Idea Spark</strong><span>Find fresh angles for your next project.</span><b>Open tool ↗</b></button>
+        <button class="tool-card" data-tool="planner"><span class="tool-symbol gold">◷</span><strong>Day Planner</strong><span>Turn a busy day into a clear plan.</span><b>Open tool ↗</b></button>
+      </div>
+    </section>
+
+    <section class="section discover" id="discover">
+      <div class="section-heading"><div><div class="eyebrow">03 / YOUR WORLD, EXPANDED</div><h2>Stay curious.</h2></div><p>A home for useful discoveries, helpful tips and things worth exploring.</p></div>
+      <div class="discover-grid">
+        <article class="discover-card trend"><div class="card-kicker">TRENDING IDEAS</div><div class="big-star">✦</div><h3>What will you make next?</h3><p>Explore ideas, learn something new, and turn curiosity into action.</p><a href="#assistant">Start exploring →</a></article>
+        <article class="discover-card tips"><div class="card-kicker">QUICK TIP</div><div class="tip-icon">↗</div><h3>Be specific.</h3><p>Tell your AI what you need, who it's for, and the style you want. Better context usually means better results.</p><a href="#assistant">Try a prompt →</a></article>
+      </div>
+    </section>
+
+    <section class="bottom-cta"><div class="eyebrow">THE FUTURE IS A WORK IN PROGRESS</div><h2>Make room for <span>what's next.</span></h2><p>Noxora starts here. More powerful features can be added as we build.</p><a class="primary-btn" href="#assistant">Try Noxora AI <span>→</span></a></section>
+  </main>
+  <footer><a class="brand" href="#"><span class="brand-mark">N</span><span>NOXORA</span></a><span>Your AI. Your Tools. Your World.</span><span>Starter prototype · 2026</span></footer>
+  <div class="toast" id="toast" role="status"></div>
+  <script src="app.js"></script>
+</body>
+</html>
