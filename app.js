@@ -1,64 +1,81 @@
-const chatArea = document.getElementById('chatArea');
-const chatInput = document.getElementById('chatInput');
-const chatForm = document.getElementById('chatForm');
-const toast = document.getElementById('toast');
-let waitingForReply = false;
+const chatArea = document.getElementById("chatArea");
+const chatInput = document.getElementById("chatInput");
+const chatForm = document.getElementById("chatForm");
+const sendButton = document.getElementById("sendButton");
+const toast = document.getElementById("toast");
+document.getElementById("year").textContent = new Date().getFullYear();
 
-function showToast(message) {
-  toast.textContent = message;
-  toast.classList.add('show');
-  clearTimeout(showToast.timer);
-  showToast.timer = setTimeout(() => toast.classList.remove('show'), 3000);
-}
-function addBubble(text, who) {
-  const bubble = document.createElement('div');
-  bubble.className = 'bubble ' + who;
+let history = [];
+let waiting = false;
+
+function addMessage(text, who) {
+  const row = document.createElement("div");
+  row.className = `message ${who === "user" ? "user-message" : "assistant-message"}`;
+  if (who !== "user") {
+    const avatar = document.createElement("span");
+    avatar.className = "mini-avatar";
+    avatar.textContent = "N";
+    row.appendChild(avatar);
+  }
+  const bubble = document.createElement("div");
+  bubble.className = "bubble";
   bubble.textContent = text;
-  chatArea.appendChild(bubble);
+  row.appendChild(bubble);
+  chatArea.appendChild(row);
   chatArea.scrollTop = chatArea.scrollHeight;
   return bubble;
 }
-async function sendMessage(message) {
-  const clean = message.trim();
-  if (!clean || waitingForReply) return;
-  addBubble(clean, 'user');
-  chatInput.value = '';
-  waitingForReply = true;
-  chatInput.disabled = true;
-  const sendButton = chatForm.querySelector('button[type="submit"]');
+
+async function sendMessage(text) {
+  text = text.trim();
+  if (!text || waiting) return;
+  toast.textContent = "";
+  addMessage(text, "user");
+  history.push({ role: "user", content: text });
+  chatInput.value = "";
+  chatInput.style.height = "auto";
+  waiting = true;
   sendButton.disabled = true;
-  const loadingBubble = addBubble('Noxora is thinking…', 'bot');
+  const replyBubble = addMessage("Thinking…", "assistant");
   try {
-    const response = await fetch('/.netlify/functions/chat', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ message: clean })
+    const response = await fetch("/.netlify/functions/chat", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ messages: history.slice(-12) })
     });
-    const data = await response.json();
-    if (!response.ok) throw new Error(data.error || 'Noxora could not answer right now.');
-    loadingBubble.textContent = data.reply || 'I could not create a reply just now. Please try again.';
+    const data = await response.json().catch(() => ({}));
+    if (!response.ok) throw new Error(data.error || `Request failed (${response.status}).`);
+    if (!data.reply) throw new Error("The AI returned an empty reply.");
+    replyBubble.textContent = data.reply;
+    history.push({ role: "assistant", content: data.reply });
   } catch (error) {
-    loadingBubble.textContent = error.message || 'Noxora could not connect. Please try again later.';
+    replyBubble.textContent = "I couldn't connect to the AI service just now.";
+    toast.textContent = error.message.includes("404")
+      ? "Chat backend not found. Deploy this folder with Netlify Functions enabled."
+      : "Check the Netlify function and OPENAI_API_KEY environment variable, then try again.";
+    history.pop();
   } finally {
-    waitingForReply = false;
-    chatInput.disabled = false;
+    waiting = false;
     sendButton.disabled = false;
     chatInput.focus();
     chatArea.scrollTop = chatArea.scrollHeight;
   }
 }
-chatForm.addEventListener('submit', e => { e.preventDefault(); sendMessage(chatInput.value); });
-document.querySelectorAll('.prompt').forEach(btn => btn.addEventListener('click', () => sendMessage(btn.textContent)));
-document.querySelectorAll('.tool-card').forEach(btn => btn.addEventListener('click', () => {
-  const prompts = {
-    writer: 'Help me write a short social media bio.',
-    study: 'Help me study a difficult topic. Ask me which subject and topic if needed.',
-    ideas: 'Give me some useful project ideas and explain how to start small.',
-    planner: 'Help me plan my day. Ask what tasks I need to do if I have not listed them.'
-  };
-  document.getElementById('assistant').scrollIntoView({behavior:'smooth'});
-  setTimeout(() => sendMessage(prompts[btn.dataset.tool] || 'Help me get started.'), 350);
-}));
-document.getElementById('topTry').addEventListener('click', () => document.getElementById('assistant').scrollIntoView({behavior:'smooth'}));
-document.getElementById('menuBtn').addEventListener('click', () => document.getElementById('nav').classList.toggle('open'));
-document.querySelectorAll('#nav a').forEach(a => a.addEventListener('click', () => document.getElementById('nav').classList.remove('open')));
+
+chatForm.addEventListener("submit", event => {
+  event.preventDefault();
+  sendMessage(chatInput.value);
+});
+chatInput.addEventListener("input", () => {
+  chatInput.style.height = "auto";
+  chatInput.style.height = Math.min(chatInput.scrollHeight, 120) + "px";
+});
+chatInput.addEventListener("keydown", event => {
+  if (event.key === "Enter" && !event.shiftKey) {
+    event.preventDefault();
+    chatForm.requestSubmit();
+  }
+});
+document.querySelectorAll(".suggestion").forEach(button => {
+  button.addEventListener("click", () => sendMessage(button.dataset.prompt || ""));
+});
