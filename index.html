@@ -1,66 +1,16 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#090611">
-  <meta name="description" content="Noxora — your AI-powered space for ideas, tools, tips, and discovery.">
-  <title>Noxora — Your AI Universe</title>
-  <link rel="stylesheet" href="/style.css">
-</head>
-<body>
-  <div class="ambient ambient-one"></div><div class="ambient ambient-two"></div>
-  <header class="topbar">
-    <a class="brand" href="/" aria-label="Noxora home"><span class="brand-mark">N</span><span>noxora<span class="dot">.</span></span></a>
-    <nav><a href="#tools">Tools</a><a href="#discover">Discover</a></nav>
-    <a class="top-cta" href="#chat">Try AI <span>↗</span></a>
-  </header>
-  <main>
-    <section class="hero">
-      <div class="eyebrow"><span class="pulse"></span> YOUR AI UNIVERSE</div>
-      <h1>Big ideas start<br>with <span>one question.</span></h1>
-      <p class="hero-copy">Meet your everyday AI companion for answers, fresh ideas, smarter work, and what's next.</p>
-      <a class="primary-button" href="#chat">Start chatting <span>→</span></a>
-      <div class="hero-note"><span class="spark">✦</span> One space. Endless possibilities.</div>
-    </section>
-
-    <section id="chat" class="chat-card">
-      <div class="chat-heading">
-        <div class="assistant-avatar">✦</div>
-        <div><h2>Ask Noxora</h2><p>Your AI assistant</p></div>
-        <span class="online"><i></i> READY</span>
-      </div>
-      <div id="chatArea" class="chat-area" aria-live="polite">
-        <div class="message assistant-message"><span class="mini-avatar">N</span><div class="bubble">Hey there 👋 I'm Noxora. What can I help you figure out today?</div></div>
-      </div>
-      <div class="suggestions">
-        <button class="suggestion" data-prompt="Give me 5 creative business ideas I can start small.">💡 Business ideas</button>
-        <button class="suggestion" data-prompt="Explain artificial intelligence in simple words.">🧠 Explain something</button>
-        <button class="suggestion" data-prompt="Help me make a realistic plan for today.">✍️ Plan my day</button>
-      </div>
-      <form id="chatForm" class="chat-form">
-        <textarea id="chatInput" rows="1" maxlength="4000" placeholder="Ask Noxora anything..." aria-label="Message Noxora"></textarea>
-        <button id="sendButton" type="submit" aria-label="Send message">↑</button>
-      </form>
-      <div id="toast" class="toast" role="status"></div>
-      <p class="privacy-note">AI can make mistakes. Don't share passwords or sensitive personal information.</p>
-    </section>
-
-    <section id="tools" class="section">
-      <div class="section-intro"><span class="eyebrow">BUILT FOR YOUR DAY</span><h2>More than a chatbot.</h2><p>A growing collection of tools to help you think, create, and get things done.</p></div>
-      <div class="feature-grid">
-        <article class="feature"><div class="feature-icon purple">✦</div><h3>AI Assistant</h3><p>Ask questions, brainstorm, learn, and get help with everyday tasks.</p><span class="feature-tag">CORE FEATURE</span></article>
-        <article class="feature"><div class="feature-icon blue">⌘</div><h3>Smart Tools</h3><p>Use prompts for writing, planning, studying, and creative work.</p><span class="feature-tag">MORE COMING</span></article>
-        <article class="feature"><div class="feature-icon pink">↗</div><h3>Deals & Discovery</h3><p>Find useful resources and hand-picked recommendations as Noxora grows.</p><span class="feature-tag">EXPLORE</span></article>
-      </div>
-    </section>
-
-    <section id="discover" class="discover">
-      <div><span class="eyebrow">KEEP EXPLORING</span><h2>Your next idea<br>could start here.</h2><p>Come back for new tools, helpful tips, and discoveries.</p></div>
-      <a class="secondary-button" href="#chat">Ask a question <span>→</span></a>
-    </section>
-  </main>
-  <footer><a class="brand footer-brand" href="/"><span class="brand-mark">N</span><span>noxora<span class="dot">.</span></span></a><p>Built for curiosity. Made for what's next.</p><span>© <span id="year"></span> Noxora</span></footer>
-  <script src="/app.js"></script>
-</body>
-</html>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#090711"><meta name="description" content="Noxora — your AI space for ideas, tools and answers.">
+<title>Noxora AI</title><link rel="stylesheet" href="style.css">
+</head><body>
+<div class="app">
+ <aside class="sidebar"><div class="brand"><span class="logo">N</span><span>NOXORA</span></div><button id="newChat" class="new-chat">＋ New chat</button><nav><a class="active" href="#chat">✦ AI Assistant</a><a href="#tools">▦ AI Tools</a><a href="#discover">◈ Discover</a></nav><div class="side-bottom"><small>YOUR AI SPACE</small><p>Ideas. Answers. Possibilities.</p></div></aside>
+ <main><header><button id="menu" aria-label="Open menu">☰</button><div class="mobile-brand">✦ NOXORA</div><span class="status"><i></i> AI assistant</span><button class="upgrade" id="premium">✦ Premium</button></header>
+ <section id="chat" class="chat"><div class="welcome" id="welcome"><div class="orb">✦</div><p class="eyebrow">WELCOME TO YOUR AI SPACE</p><h1>What can I help<br><span>you create?</span></h1><p class="sub">Ask anything. Explore ideas. Make something amazing.</p><div class="suggestions"><button data-prompt="Give me 5 creative ideas for today">✦ Give me ideas</button><button data-prompt="Explain a difficult topic simply">▤ Explain something</button><button data-prompt="Help me write a professional message">✎ Help me write</button></div></div><div id="messages" class="messages"></div></section>
+ <form id="chatForm" class="composer"><textarea id="chatInput" rows="1" placeholder="Message Noxora..." maxlength="6000"></textarea><div class="composer-foot"><span>✦ Noxora AI · Check important answers</span><button id="send" type="submit" aria-label="Send message">↑</button></div></form><p class="disclaimer">Noxora can make mistakes. Verify important information.</p>
+ <section id="tools" class="extra"><h2>Explore AI tools</h2><div class="tool-grid"><button data-prompt="Help me brainstorm a business idea with a simple plan."><b>✦ Idea generator</b><small>Turn a thought into a plan</small></button><button data-prompt="Write a short social media caption for a new product."><b>✎ Content writer</b><small>Captions, posts and messages</small></button><button data-prompt="Teach me a topic step by step, starting with the basics."><b>▤ Study helper</b><small>Learn at your own pace</small></button></div></section>
+ <section id="discover" class="extra"><h2>Discover</h2><p class="sub">More Noxora experiences are coming. Start with the AI assistant above.</p></section>
+ <footer>© <span id="year"></span> Noxora · Made for curious minds</footer></main></div><div id="toast" role="status"></div><script src="app.js"></script>
+</body></html>

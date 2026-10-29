@@ -1,42 +1,26 @@
-NOXORA WEBSITE — DEPLOYMENT GUIDE
+NOXORA — DEPLOYMENT NOTES
 
-WHAT'S INCLUDED
-- Responsive black/purple Noxora website
-- AI chat interface
-- Netlify serverless function at netlify/functions/chat.js
-- Netlify configuration
+Included:
+- index.html, style.css, app.js: responsive Noxora site
+- netlify/functions/chat.js: secure server-side OpenAI chat endpoint
+- netlify.toml: Netlify publish/functions configuration
 
-IMPORTANT
-The website design works without an API key, but AI replies require an OpenAI API key, API billing/credits, and the backend deployed as a Netlify Function. This project does not include an API key.
+IMPORTANT: This is deploy-ready source, not already published. I cannot access your GitHub/Netlify account or set up monetization on your behalf. You must deploy it from your account and add your own secret API key.
 
-DEPLOY THE COMPLETE SITE
-1. Extract noxora-website.zip on your phone or computer.
-2. In Netlify, choose Add new site / Deploy manually (wording can vary).
-3. Upload the extracted site folder if Netlify supports folder upload. If it only accepts a ZIP, upload the ZIP.
-4. For the most reliable Functions deployment, connect the GitHub repository and commit ALL these files while preserving the path netlify/functions/chat.js. Netlify must use the repository root as the base directory.
-5. In Netlify: Site configuration (or Site settings) > Environment variables, add:
-   Key: OPENAI_API_KEY
-   Value: your secret OpenAI API key
-   Do not share this key or place it in index.html/app.js.
-6. Optionally add OPENAI_MODEL with value gpt-4o-mini.
-7. Trigger a fresh deploy after setting environment variables.
-8. Test the website, then test:
-   https://YOUR-SITE.netlify.app/.netlify/functions/chat
-   Opening that URL in a browser with GET may say "Use POST for chat." or Method Not Allowed; that means the function route exists. A 404 means the function is not deployed or the site build settings/path are wrong.
-9. AI API usage can cost money. Set usage limits/alerts in your API provider account.
+DEPLOY TO NETLIFY (Android)
+1. Upload these files/folders to your GitHub repository, preserving the structure. The folder `netlify/functions` must contain `chat.js`.
+2. In Netlify, import/connect that GitHub repository.
+3. Site configuration/build settings: publish directory `.` and functions directory `netlify/functions` (netlify.toml is included).
+4. Site configuration > Environment variables: add OPENAI_API_KEY with your secret key. Optional OPENAI_MODEL (default gpt-4o-mini).
+5. Trigger a fresh deploy after adding the key.
+6. Open your site URL. Send a chat. Test `https://YOUR-SITE.netlify.app/.netlify/functions/chat` by POSTing JSON; opening it in a browser with GET will say Method not allowed, which is expected.
 
 MONETIZATION CHECKLIST
-- Add a real Privacy Policy, Terms, and Contact page before applying to ad networks.
-- Publish original useful content and make the site reliable on mobile.
-- Apply to an ad network that accepts your country/site; approval is not guaranteed.
-- Use affiliate programs that explicitly accept Nigerian publishers and disclose affiliate links.
-- Never click your own ads or encourage users to click ads.
-- Do not promise users guaranteed earnings.
-- Add real privacy/cookie disclosures where required.
-- This starter does not yet include ad tags, affiliate integrations, login/accounts, payments, or a native Android APK. Those require separate setup.
+- Ads: apply to an ad network and follow its approval/publisher rules. Insert the network's approved ad code only after acceptance. No ad account or ad code is included, and income is not guaranteed.
+- Affiliate: join programs that accept your country/publisher profile; add disclosed affiliate links and privacy/terms pages.
+- Premium: connect a payment provider that supports your business/country, add server-side checkout/webhook validation, and only then enable Premium. The current Premium button is a placeholder and does not charge users.
+- Add Privacy Policy, Terms, contact/support, cookie/consent handling as required by your ad network and local law before public launch.
+- Protect API usage: configure provider limits/budget alerts, add rate limiting and abuse protection before sharing widely. This starter has no user login or rate limiting.
 
-TROUBLESHOOTING
-- 404 on /.netlify/functions/chat: ensure netlify/functions/chat.js is committed in the deployed repository and functions directory is netlify/functions.
-- Missing OPENAI_API_KEY: add it in Netlify environment variables and redeploy.
-- 401/invalid API key: check key is valid and belongs to an account with API access.
-- 429/quota: check API billing/usage limits.
+SECURITY
+Never put OPENAI_API_KEY in app.js, index.html, or any public GitHub file. Store it only in Netlify environment variables. Do not commit secrets.
